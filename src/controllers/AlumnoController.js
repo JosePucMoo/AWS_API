@@ -5,9 +5,9 @@ let alumnos = [];
 
 export const createAlumno = (req, res) => {
     try {
-        const { nombres, apellidos, matricula, promedio } = req.body;
+        const { id, nombres, apellidos, matricula, promedio } = req.body;
 
-        const alumno = new Alumno(nombres, apellidos, matricula, promedio);
+        const alumno = new Alumno( id, nombres, apellidos, matricula, promedio);
         alumnos.push(alumno);
         res.status(201).json(alumno);
     } catch (error) {
@@ -21,7 +21,7 @@ export const getAlumnos = (req, res) => {
 
 export const getAlumnosById = (req, res) => {
     const { id } = req.params;
-    const alumno = alumnos.find((alumno) => alumno.id.toString() === id);
+    const alumno = alumnos.find((alumno) => alumno.id == id);
 
     if (!alumno) {
         return res.status(404).json({ error: 'Alumno not found' });
@@ -32,14 +32,13 @@ export const getAlumnosById = (req, res) => {
 
 export const deleteAlumno = (req, res) => {
     const { id } = req.params;
-    console.log(id);
-    const alumno = alumnos.find((alumno) => alumno.id === id);
+    const alumno = alumnos.find((alumno) => alumno.id == id);
 
     if (!alumno) {
         return res.status(404).json({ error: 'Alumno not found' });
     }
 
-    alumnos = alumnos.filter((alumno) => alumno.id !== id);
+    alumnos = alumnos.filter((alumno) => alumno.id != id);
     res.status(200).json({ message: 'Alumno deleted successfully' });
 };
 
@@ -49,7 +48,7 @@ export const updateAlumno = (req, res) => {
         
         const { nombres, apellidos, matricula, promedio } = req.body;
 
-        const alumno = alumnos.find((alumno) => alumno.id === id);
+        const alumno = alumnos.find((alumno) => alumno.id == id);
 
         if (!alumno) {
             return res.status(404).json({ error: 'Alumno not found' });
@@ -61,4 +60,10 @@ export const updateAlumno = (req, res) => {
         res.status(500).json({ error: error.message });
     }
 
+};
+
+export const unsuportedMethod = (req, res) => {
+    res.status(405).json({
+        error: `Método ${req.method} no permitido en ${req.originalUrl}`
+    });
 };

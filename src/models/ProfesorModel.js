@@ -1,7 +1,7 @@
 class Profesor {
 
-    constructor(numeroEmpleado, nombres, apellidos, horasClase) {
-        this.id = Math.floor(Math.random() * 1000000);
+    constructor(id, numeroEmpleado, nombres, apellidos, horasClase) {
+        this.id = id ?? Math.floor(Math.random() * 1000000);
         this.numeroEmpleado = numeroEmpleado;
         this.nombres = nombres, 
         this.apellidos = apellidos;
