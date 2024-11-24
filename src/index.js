@@ -1,6 +1,6 @@
 import express from 'express';
-import AlumnoRoute from './routes/AlumnosRoute.js';
-import ProfesorRoute from './routes/ProfesoresRoute.js';
+import AlumnoRoute from './routes/alumnos.route.js';
+import ProfesorRoute from './routes/profesores.route.js';
 import morgan from 'morgan';
 
 const app = express();

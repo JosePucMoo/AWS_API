@@ -1,6 +1,6 @@
 import express from 'express';
-import { createAlumno, getAlumnos, deleteAlumno, getAlumnosById, updateAlumno, unsuportedMethod } from '../controllers/AlumnoController.js';
-import { alumnoDataValidatebyBody,alumnoDataValidatebyParams } from '../validators/AlumnoValidator.js';
+import { createAlumno, getAlumnos, deleteAlumno, getAlumnosById, updateAlumno, unsuportedMethod } from '../controllers/alumno.controller.js';
+import { alumnoDataValidatebyBody,alumnoDataValidatebyParams } from '../validators/alumno.validator.js';
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-import Alumno from "../models/AlumnoModel.js";
+import Alumno from "../models/alumno.model.js";
 
 
 let alumnos = [];

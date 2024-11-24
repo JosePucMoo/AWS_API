@@ -1,4 +1,4 @@
-import Profesor from "../models/ProfesorModel.js";
+import Profesor from "../models/profesor.model.js";
 
 
 let profesores = [];
