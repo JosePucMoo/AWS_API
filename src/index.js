@@ -1,7 +1,6 @@
 import express from 'express';
 import AlumnoRoute from './routes/alumnos.route.js';
 import ProfesorRoute from './routes/profesores.route.js';
-import morgan from 'morgan';
 
 const app = express();
 
@@ -12,7 +11,6 @@ app.set('json spaces', 2);
 //middlewares
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-app.use(morgan('dev'));
 
 //Routes
 app.use('/', AlumnoRoute);
@@ -32,8 +30,6 @@ app.all('*', (req, res) => {
     });
 });
 
-
-// Starting server
 app.listen(app.get('port'), () => {
     console.log(`server on port ${app.get('port')}`)
 })

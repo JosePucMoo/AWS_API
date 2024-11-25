@@ -19,12 +19,11 @@ export const profesorDataValidatebyBody = [
     body("numeroEmpleado")
         .exists({ checkFalsy: true })
         .withMessage("Numero de empleado is required")
-        .isInt({ min: 0})
-        .withMessage("Numero de empleado should be a string"),
+        .isInt({ min: 0, max: 999999})
+        .withMessage("Numero de empleado should be a int between 1 and 6 digits"),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty())
-
             return res.status(400).json({ error: errors.array().map((error) => error.msg) });
         next();
     },

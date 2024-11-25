@@ -21,10 +21,14 @@ export const alumnoDataValidatebyBody = [
         .withMessage("Promedio is required")
         .isFloat({ min: 0 })
         .withMessage("Promedio should be a positive number"),
+    body("password")
+        .exists({checkFalsy: true})
+        .withMessage("Password is required")
+        .isLength({min: 10, max: 10})
+        .withMessage("Password must be exactly 10 characters long"),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty())
-
             return res.status(400).json({ error : errors.array().map((error) => error.msg) });
         next();
     },

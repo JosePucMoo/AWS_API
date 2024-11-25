@@ -1,12 +1,42 @@
-class Profesor {
+import { DataTypes, Model } from 'sequelize';
+import database from '../database/database.js';
 
-    constructor(id, numeroEmpleado, nombres, apellidos, horasClase) {
-        this.id = id ?? Math.floor(Math.random() * 1000000);
-        this.numeroEmpleado = numeroEmpleado;
-        this.nombres = nombres, 
-        this.apellidos = apellidos;
-        this.horasClase = horasClase;
-    }
-}
+class Profesor extends Model {}
+
+Profesor.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,  
+      autoIncrement: true,
+    },
+    numeroEmpleado: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true,
+    },
+    nombres: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    apellidos: {
+      type: DataTypes.STRING,
+      allowNull: false,  
+    },
+    horasClase: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+    },
+  },
+  {
+    sequelize: database, 
+    modelName: 'Profesor', 
+    tableName: 'profesores', 
+    timestamps: false, 
+  }
+);
 
 export default Profesor;
