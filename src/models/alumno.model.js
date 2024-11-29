@@ -33,7 +33,7 @@ Alumno.init(
       },
     },
     fotoPerfilUrl: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(2083),
         allowNull: true, 
         validate: {
           isUrl: true,

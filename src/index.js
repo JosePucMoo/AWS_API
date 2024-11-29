@@ -1,6 +1,7 @@
 import express from 'express';
 import AlumnoRoute from './routes/alumnos.route.js';
 import ProfesorRoute from './routes/profesores.route.js';
+import fileUpload from 'express-fileupload';
 
 const app = express();
 
@@ -11,6 +12,11 @@ app.set('json spaces', 2);
 //middlewares
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(
+    fileUpload({
+        useTempFiles: false
+    })
+);
 
 //Routes
 app.use('/', AlumnoRoute);

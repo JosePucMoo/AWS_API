@@ -1,4 +1,5 @@
 import Alumno from "../models/alumno.model.js";
+import { uploadFile } from '../database/s3.js'
 
 export const createAlumno = async (req, res) => {
     try {
@@ -22,6 +23,7 @@ export const createAlumno = async (req, res) => {
 
 export const getAlumnos = async (req, res) => {
     try {
+        await Alumno.sync();
         const alumnos = await Alumno.findAll(); 
         res.status(200).json(alumnos);
       } catch (error) {
@@ -80,6 +82,26 @@ export const updateAlumno = async (req, res) => {
       }
 
 };
+
+export const uploadProfilePicture = async (req, res) => {
+  try {
+      const { id } = req.params;
+      const alumno = await Alumno.findByPk(id);
+  
+      if (!alumno) {
+        return res.status(404).json({ error: 'Alumno not found' });
+      }
+      
+      const fileUrl = await uploadFile(id, req.files.foto);
+
+      alumno.fotoPerfilUrl = fileUrl;
+      await alumno.save();
+  
+      res.status(200).json({"fotoPerfilUrl": fileUrl});
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+}
 
 export const unsuportedMethod = (req, res) => {
     res.status(405).json({
