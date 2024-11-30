@@ -1,5 +1,5 @@
 import express from 'express';
-import { createAlumno, getAlumnos, deleteAlumno, getAlumnosById, uploadProfilePicture, updateAlumno, unsuportedMethod } from '../controllers/alumno.controller.js';
+import { createAlumno, getAlumnos, deleteAlumno, getAlumnosById, uploadProfilePicture, updateAlumno, loginAlumno, unsuportedMethod } from '../controllers/alumno.controller.js';
 import { alumnoDataValidatebyBody,alumnoDataValidatebyParams } from '../validators/alumno.validator.js';
 
 const router = express.Router();
@@ -9,6 +9,8 @@ router.get('/alumnos', getAlumnos);
 router.get('/alumnos/:id', alumnoDataValidatebyParams,getAlumnosById);
 
 router.post('/alumnos/:id/fotoPerfil', alumnoDataValidatebyParams, uploadProfilePicture);
+
+router.post('/alumnos/:id/session/login', alumnoDataValidatebyParams, loginAlumno);
 
 router.post('/alumnos', alumnoDataValidatebyBody,createAlumno);
 

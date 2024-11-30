@@ -1,5 +1,42 @@
-import Alumno from "../models/alumno.model.js";
+import Alumno from '../models/alumno.model.js';
 import { uploadFile } from '../database/s3.js'
+import { saveSession } from '../database/dynamoDB.js';
+import { DataTypes } from 'sequelize';
+import crypto, { randomUUID } from 'crypto';
+import bcrypt from 'bcrypt';
+
+export const loginAlumno = async (req, res) => {
+  try {
+      const { id } = req.params;
+      const { password } = req.body;
+
+      const alumno = await Alumno.findByPk(id);
+    
+      if (!alumno) {
+        return res.status(404).json({ error: 'Alumno not found' });
+      }
+
+      // Verifica la contraseña
+      const isPasswordValid = await bcrypt.compare(password, alumno.password);
+      if (!isPasswordValid) {
+          return res.status(400).json({ error: 'Invalid password' });
+      }
+
+      const sessionData = {
+        id: randomUUID(),
+        fecha: Math.floor(Date.now() / 1000),
+        alumnoId: parseInt(id),
+        active: true,
+        sessionString: crypto.randomBytes(64).toString('hex')
+      }
+      
+      const result = await saveSession(sessionData);
+
+      res.status(200).json({sessionString: sessionData.sessionString}); 
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 export const createAlumno = async (req, res) => {
     try {
@@ -108,3 +145,8 @@ export const unsuportedMethod = (req, res) => {
         error: `Método ${req.method} no permitido en ${req.originalUrl}`
     });
 };
+
+async function comparePasswords(plainPassword, hashedPassword) {
+  const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+  return isMatch; // Retorna true si coinciden, false si no.
+}

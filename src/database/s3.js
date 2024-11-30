@@ -1,9 +1,8 @@
 import { S3Client, PutObjectCommand, ListObjectsCommand, GetObjectCommand } from '@aws-sdk/client-s3'
-import { AWS_BUCKET_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESES_KEY, AWS_BUCKET_NAME, AWS_SESSION_TOKEN} from './config.js'
-import {getSignedUrl} from '@aws-sdk/s3-request-presigner'
+import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESES_KEY, AWS_BUCKET_NAME, AWS_SESSION_TOKEN} from './config.js'
 
 const client = new S3Client({
-    region: AWS_BUCKET_REGION,
+    region: AWS_REGION,
     credentials: {
         accessKeyId: AWS_ACCESS_KEY_ID,
         secretAccessKey: AWS_SECRET_ACCESES_KEY,
