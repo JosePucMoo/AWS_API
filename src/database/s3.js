@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand, ListObjectsCommand, GetObjectCommand } from '@aws-sdk/client-s3'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESES_KEY, AWS_BUCKET_NAME, AWS_SESSION_TOKEN} from './config.js'
 
 const client = new S3Client({
