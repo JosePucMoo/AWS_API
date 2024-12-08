@@ -1,9 +1,9 @@
 import Alumno from '../models/alumno.model.js';
-import { uploadFile } from '../database/s3.js'
-import { saveSession, getSessionBySessionString, updateActiveStatusBySessionString } from '../database/dynamoDB.js';
+import { uploadFile } from '../lib/s3.js'
+import { saveSession, getSessionBySessionString, updateActiveStatusBySessionString } from '../lib/dynamoDB.js';
 import crypto, { randomUUID } from 'crypto';
 import bcrypt from 'bcrypt';
-import { sendEmailSNS } from '../database/sns.js';
+import { sendEmailSNS } from '../lib/sns.js';
 
 export const createAlumno = async (req, res) => {
     try {
