@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import database from '../database/database.js';
+import database from '../database/sequelize.js';
 
 class Profesor extends Model {}
 

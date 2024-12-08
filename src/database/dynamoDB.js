@@ -1,12 +1,12 @@
 import { DynamoDBClient, QueryCommand } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
-import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESES_KEY, AWS_SESSION_TOKEN } from './config.js';
+import { AWS_BUCKET_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN } from './config.js';
 
 const client = new DynamoDBClient({
-    region: AWS_REGION,
+    region: AWS_BUCKET_REGION,
     credentials: {
         accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SECRET_ACCESES_KEY,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY,
         sessionToken: AWS_SESSION_TOKEN,
     },
 });
@@ -32,7 +32,6 @@ export async function saveSession(sessionData) {
     try {
         return await dynamoDb.send(new PutCommand(params));
     } catch (error) {
-        console.error('Error al guardar la sesión:', error);
         throw new Error('Error al guardar la sesión en DynamoDB');
     }
 }
@@ -51,7 +50,6 @@ export async function getSessionBySessionString(sessionString) {
         const data = await dynamoDb.send(new QueryCommand(params));
         return data.Items && data.Items.length > 0 ? data.Items[0] : null; // Devuelve la primera sesión encontrada
     } catch (error) {
-        console.error('Error fetching session by sessionString:', error);
         throw new Error('Error fetching session');
     }
 }
@@ -72,7 +70,6 @@ export async function updateActiveStatusBySessionString(session) {
 
     try {
         const updateData = await dynamoDb.send(new UpdateCommand(updateParams));
-        console.log('Session updated:', updateData.Attributes);
         return updateData.Attributes; // Devuelve los atributos actualizados de la sesión
     } catch (error) {
         console.error('Error updating session:', error);

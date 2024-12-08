@@ -3,6 +3,7 @@ import { uploadFile } from '../database/s3.js'
 import { saveSession, getSessionBySessionString, updateActiveStatusBySessionString } from '../database/dynamoDB.js';
 import crypto, { randomUUID } from 'crypto';
 import bcrypt from 'bcrypt';
+import { sendEmailSNS } from '../database/sns.js';
 
 export const createAlumno = async (req, res) => {
     try {
@@ -226,4 +227,21 @@ export const logoutAlumno = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const sendEmail = async (req, res) => {
+        
+  const { id } = req.params;
+  const alumno = await Alumno.findByPk(id);
+
+  if (!alumno) {
+      return res.status(404).json({ error: 'Alumno not found' });
+  }
+
+  try {
+      const data  = await sendEmailSNS(alumno);
+      res.status(200).json({message: 'Email sent successfully'});
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+}
 

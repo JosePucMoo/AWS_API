@@ -1,11 +1,11 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
-import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESES_KEY, AWS_BUCKET_NAME, AWS_SESSION_TOKEN} from './config.js'
+import { AWS_BUCKET_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_BUCKET_NAME, AWS_SESSION_TOKEN} from './config.js'
 
 const client = new S3Client({
-    region: AWS_REGION,
+    region: AWS_BUCKET_REGION,
     credentials: {
         accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SECRET_ACCESES_KEY,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY,
         sessionToken: AWS_SESSION_TOKEN
     }
 })
