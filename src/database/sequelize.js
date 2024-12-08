@@ -1,10 +1,11 @@
 import { Sequelize } from "sequelize";
+import { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, DB_PORT, DB_DIALECT } from "./config.js";
 
-const database = new Sequelize("sicei-api", "admin", "Pumzxc_2552", {
-  host: "sicei-cluster-instance-1.cx6gu0k2uzas.us-east-1.rds.amazonaws.com",
-  port: 3306,
-  dialect: "mysql",
-  logging: false,
+const database = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: DB_DIALECT,
+  loggin: false
 });
 
 async function testingDB() {
@@ -19,7 +20,7 @@ async function testingDB() {
 const createDatabase = async () => {
   try {
     // Conéctate al clúster sin especificar una base de datos
-    await database.query("CREATE DATABASE IF NOT EXISTS `sicei-api`;");
+    await database.query(`CREATE DATABASE IF NOT EXISTS ${DB_NAME}`);
     console.log("Base de datos creada exitosamente.");
     process.exit(0); // Finaliza el script
   } catch (error) {

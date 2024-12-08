@@ -72,7 +72,6 @@ export async function updateActiveStatusBySessionString(session) {
         const updateData = await dynamoDb.send(new UpdateCommand(updateParams));
         return updateData.Attributes; // Devuelve los atributos actualizados de la sesión
     } catch (error) {
-        console.error('Error updating session:', error);
         throw new Error('Error updating session in DynamoDB');
     }
 }
