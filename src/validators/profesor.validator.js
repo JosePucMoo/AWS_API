@@ -1,6 +1,6 @@
-import { body, param, validationResult} from "express-validator";
+import { body, param, validationResult } from "express-validator";
 
-export const alumnoDataValidatebyBody = [
+export const profesorDataValidatebyBody = [
     body("nombres")
         .exists({ checkFalsy: true })
         .withMessage("Nombre is required")
@@ -11,26 +11,25 @@ export const alumnoDataValidatebyBody = [
         .withMessage("Apellidos is required")
         .isString()
         .withMessage("Apellidos should be string"),
-    body("matricula")
+    body("horasClase")
         .exists({ checkFalsy: true })
-        .withMessage("Matricula is required")
-        .matches(/^A\d+$/)
-        .withMessage("Matricula should start with 'A' followed by numbers"),
-    body("promedio")
-        .exists({checkFalsy: true})
-        .withMessage("Promedio is required")
-        .isFloat({ min: 0 })
-        .withMessage("Promedio should be a positive number"),
+        .withMessage("Horas de clase is required")
+        .isInt({ min: 0})
+        .withMessage("Horas de clase should be a positive number"),
+    body("numeroEmpleado")
+        .exists({ checkFalsy: true })
+        .withMessage("Numero de empleado is required")
+        .isInt({ min: 0, max: 999999})
+        .withMessage("Numero de empleado should be a int between 1 and 6 digits"),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty())
-
-            return res.status(400).json({ error : errors.array().map((error) => error.msg) });
+            return res.status(400).json({ error: errors.array().map((error) => error.msg) });
         next();
     },
 ];
 
-export const alumnoDataValidatebyParams = [
+export const profesorDataValidatebyParams = [
     param("id")
         .exists({ checkFalsy: true })
         .isInt({ min: 0 })
@@ -38,7 +37,7 @@ export const alumnoDataValidatebyParams = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty())
-            return res.status(422).json({ error : errors.array().map((error) => error.msg) });
+            return res.status(422).json({ error: errors.array().map((error) => error.msg) });
         next();
     },
 ];

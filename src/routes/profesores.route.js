@@ -1,6 +1,6 @@
 import express from 'express';
-import { createProfesor,getProfesor,getProfesorById,updateProfesor ,deleteProfesor, unsuportedMethod} from '../controllers/ProfesorController.js';
-import { profesorDataValidatebyBody,profesorDataValidatebyParams } from '../validators/ProfesorValidator.js';
+import { createProfesor,getProfesor,getProfesorById,updateProfesor ,deleteProfesor, unsuportedMethod} from '../controllers/profesor.controller.js';
+import { profesorDataValidatebyBody,profesorDataValidatebyParams } from '../validators/profesor.validator.js';
 
 const router = express.Router();
 
